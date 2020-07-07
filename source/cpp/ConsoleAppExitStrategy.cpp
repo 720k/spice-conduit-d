@@ -5,7 +5,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-Q_LOGGING_CATEGORY(catConsoleAppExitStrategy, "catConsoleAppExitStrategy")
+Q_LOGGING_CATEGORY(catConsoleAppExitStrategy, "ConsoleAppExitStrategy")
 
 ConsoleAppExitStrategy::ConsoleAppExitStrategy(QObject *parent) : QObject(parent) {
     exitFn_ = std::async(std::launch::async, [&]() { std::getchar(); exitFlag_=true; } );

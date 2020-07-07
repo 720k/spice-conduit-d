@@ -1,5 +1,5 @@
 #include "ConsoleApplication.h"
-#include "ConduitHandler.h"
+#include "ConduitThread.h"
 #include <QDebug>
 #include <QTimer>
 #include <QDeadlineTimer>
@@ -9,21 +9,18 @@ Q_LOGGING_CATEGORY(catApp,"App")
 ConsoleApplication::ConsoleApplication(int &argCount, char **argValues) : QCoreApplication(argCount,argValues) {
 }
 
-ConsoleApplication::~ConsoleApplication()   {
-    close();
-}
 
 
 int ConsoleApplication::run() {
     init();
-    return exec();
+    int code = exec();
+    close();
+    return code;
 }
 
-void ConsoleApplication::startConduitHandlers() {
+void ConsoleApplication::startConduitThreads() {
     qCDebug(catApp) << "Start Conduit Handlers";
-    for (const auto& conduitPortName : enumConduits()) {
-        conduitHandlers_ << new ConduitHandler(conduitPortName);
-    }
+    for (auto conduitPortName : enumConduits())     conduitThreads_ << new ConduitThread(conduitPortName);
 }
 
 QStringList ConsoleApplication::enumConduits() {
@@ -32,18 +29,18 @@ QStringList ConsoleApplication::enumConduits() {
 }
 
 void ConsoleApplication::init() {
-    QTimer::singleShot(0, this, &ConsoleApplication::startConduitHandlers);
+    QTimer::singleShot(0, this, &ConsoleApplication::startConduitThreads);
 }
 
-void ConsoleApplication::stopConduitHandlers() {
-    for (auto handler : conduitHandlers_)   handler->quit();
+void ConsoleApplication::stopConduitThreads() {
     using namespace std::chrono_literals;
-    for (auto handler : conduitHandlers_)   handler->wait(QDeadlineTimer(1s));
-    qDeleteAll(conduitHandlers_);
+    for (auto handler : conduitThreads_)   handler->quit();
+    for (auto handler : conduitThreads_)   handler->wait(QDeadlineTimer(1s));
+    qDeleteAll(conduitThreads_);
 }
 
 void ConsoleApplication::close() {
-    stopConduitHandlers();
+    stopConduitThreads();
 }
 
 

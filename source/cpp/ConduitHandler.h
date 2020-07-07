@@ -1,24 +1,25 @@
-#ifndef CONDUITHANDLER_H
-#define CONDUITHANDLER_H
+#pragma once
 
-#include <QThread>
+#include "WSerialPort/WSerialPort.h"
+#include <QObject>
+#include <QLocalServer>
 #include <QLoggingCategory>
-#include <QDebug>
-
 Q_DECLARE_LOGGING_CATEGORY(catConduitHandler)
 
-class ConduitHandler : public QThread
+class ConduitHandler : public QObject
 {
     Q_OBJECT
 public:
-    ConduitHandler(QObject *parent = nullptr);
-    ConduitHandler(const QString& portName, QObject *parent = nullptr);
-    ~ConduitHandler() override;
+    explicit            ConduitHandler(const QString& portName, QObject *parent = nullptr);
+                        ~ConduitHandler() override;
 
-    void run() override;
+
+signals:
 private:
-
+    WSerialPort     systemPort_;
+    QLocalServer    localServer_;
+    QLocalSocket*   localPort_=nullptr;
     QString         portName_;
+    QString         systemPortName_;
 };
 
-#endif // CONDUITHANDLER_H

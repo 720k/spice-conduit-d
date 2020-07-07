@@ -4,22 +4,21 @@
 #include <QLoggingCategory>
 Q_DECLARE_LOGGING_CATEGORY(catApp)
 
-class ConduitHandler;
+class ConduitThread;
 class ConsoleApplication : public QCoreApplication
 {
     Q_OBJECT
 public:
                             ConsoleApplication(int& argc, char** argv);
-                            ~ConsoleApplication() override;
     int                     run();
 private slots:
-    void                    startConduitHandlers();
+    void                    startConduitThreads();
 private:
     void                    init();
     void                    close();
     QStringList             enumConduits();
-    void                    stopConduitHandlers();
+    void                    stopConduitThreads();
 
-    QList<ConduitHandler*>  conduitHandlers_;
+    QList<ConduitThread*>   conduitThreads_;
 };
 
