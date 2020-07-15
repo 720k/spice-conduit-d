@@ -119,7 +119,9 @@ public:
     Handle handle() const;
 
 Q_SIGNALS:
+#if QT_DEPRECATED_SINCE(5, 8)
     void error(WSerialPort::SerialPortError serialPortError);
+#endif
     void errorOccurred(WSerialPort::SerialPortError error);
 
 protected:
@@ -135,7 +137,7 @@ private:
 
 #if defined(Q_OS_WIN32)
     Q_PRIVATE_SLOT(d_func(), bool _q_startAsyncWrite())
-    Q_PRIVATE_SLOT(d_func(), void _q_notified(quint32, quint32, OVERLAPPED*))
+    //Q_PRIVATE_SLOT(d_func(), void _q_notified(quint32, quint32, OVERLAPPED*))
 #endif
 };
 

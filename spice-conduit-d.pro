@@ -49,5 +49,8 @@ HEADERS += \
     source/cpp/WSerialPort/qwinoverlappedionotifier_p.h \
     source/cpp/ConsoleAppExitStrategy.h
 
+DISTFILES += \
+    text/info.text
+
 
 

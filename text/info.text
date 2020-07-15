@@ -1,0 +1,12 @@
+> 2020-07-15
+ERROR: CanecelIoEx has not been declared
+CAUSE: function is defined in ioapiset.h but only if WIN32_WINNT >= 0x0600
+...
+#if _WIN32_WINNT >= 0x0600
+  WINBASEAPI WINBOOL WINAPI GetQueuedCompletionStatusEx (HANDLE CompletionPort, LPOVERLAPPED_ENTRY lpCompletionPortEntries, ULONG ulCount, PULONG ulNumEntriesRemoved, DWORD dwMilliseconds, WINBOOL fAlertable);
+  WINBASEAPI WINBOOL WINAPI CancelIoEx (HANDLE hFile, LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI CancelSynchronousIo (HANDLE hThread);
+#endif
+...
+for some reasons MinGW does not satisfy the condition so the funtion is not defined!
+FIX: simply use MSVC2019 Kit to build

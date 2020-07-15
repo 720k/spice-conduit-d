@@ -102,7 +102,6 @@ struct serial_struct {
 #endif
 
 
-class QWinOverlappedIoNotifier;
 class QTimer;
 class QSocketNotifier;
 
@@ -151,7 +150,7 @@ public:
 
 #if defined(Q_OS_WIN32)
 
-    OVERLAPPED *            waitForNotified(QDeadlineTimer deadline);
+
 
 //    qint64 queuedBytesCount(WSerialPort::Direction direction) const;
 
@@ -161,9 +160,14 @@ public:
 
 //    bool startAsyncCommunication();
     bool _q_startAsyncWrite();
-    void _q_notified(DWORD numberOfBytes, DWORD errorCode, OVERLAPPED *overlapped);
+    void handleNotification(DWORD bytesTransferred, DWORD errorCode,
+                            OVERLAPPED *overlapped);
 
     void emitReadyRead();
+
+    static void CALLBACK ioCompletionRoutine(
+            DWORD errorCode, DWORD bytesTransfered,
+            OVERLAPPED *overlappedBase);
 
     HANDLE handle = INVALID_HANDLE_VALUE;
     QByteArray readChunkBuffer;
@@ -171,11 +175,12 @@ public:
 //    bool communicationStarted = false;
     bool writeStarted = false;
     bool readStarted = false;
-    QWinOverlappedIoNotifier *notifier = nullptr;
+    qint64 writeBytesTransferred = 0;
+    qint64 readBytesTransferred = 0;
     QTimer *startAsyncWriteTimer = nullptr;
-//    OVERLAPPED communicationOverlapped;
-    OVERLAPPED readCompletionOverlapped;
-    OVERLAPPED writeCompletionOverlapped;
+    //class Overlapped *communicationCompletionOverlapped = nullptr;
+    class Overlapped *readCompletionOverlapped = nullptr;
+    class Overlapped *writeCompletionOverlapped = nullptr;
     DWORD triggeredEventMask = 0;
 
 #elif defined(Q_OS_UNIX)

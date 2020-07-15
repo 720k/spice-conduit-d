@@ -100,7 +100,9 @@ void WSerialPortPrivate::setError(const WSerialPortErrorInfo &errorInfo)
     error = errorInfo.errorCode;
     q->setErrorString(errorInfo.errorString);
     emit q->errorOccurred(error);
+#if QT_DEPRECATED_SINCE(5, 8)
     emit q->error(error);
+#endif
 }
 
 /*!
@@ -307,8 +309,8 @@ WSerialPort::~WSerialPort() {
 */
 void WSerialPort::setPortName(const QString &name)  {
     Q_D(WSerialPort);
-//    d->systemLocation = WSerialPortPrivate::portNameToSystemLocation(name);
     d->systemLocation = name;
+//    d->systemLocation = WSerialPortPrivate::portNameToSystemLocation(name);
 }
 
 
