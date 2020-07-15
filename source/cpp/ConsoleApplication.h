@@ -2,7 +2,7 @@
 
 #include <QCoreApplication>
 #include <QLoggingCategory>
-Q_DECLARE_LOGGING_CATEGORY(catApp)
+Q_DECLARE_LOGGING_CATEGORY(catConsoleApplication)
 
 class ConduitThread;
 class ConsoleApplication : public QCoreApplication

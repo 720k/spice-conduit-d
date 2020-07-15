@@ -4,7 +4,7 @@
 #include <QTimer>
 #include <QDeadlineTimer>
 #include <chrono>
-Q_LOGGING_CATEGORY(catApp,"App")
+Q_LOGGING_CATEGORY(catConsoleApplication,"ConsoleApplication")
 
 ConsoleApplication::ConsoleApplication(int &argCount, char **argValues) : QCoreApplication(argCount,argValues) {
 }
@@ -19,13 +19,14 @@ int ConsoleApplication::run() {
 }
 
 void ConsoleApplication::startConduitThreads() {
-    qCDebug(catApp) << "Start Conduit Handlers";
+    qCDebug(catConsoleApplication) << "Start Conduit Handlers";
     for (auto conduitPortName : enumConduits())     conduitThreads_ << new ConduitThread(conduitPortName);
+    for (auto thread : conduitThreads_)            thread->start();
 }
 
 QStringList ConsoleApplication::enumConduits() {
     // enum conduit wit WindowsAPI
-    return QStringList() << "io.bplater.data.0"; //#HARDCODED: conduit list
+    return QStringList() << "io.bplayer.data.0"; //#HARDCODED: conduit list
 }
 
 void ConsoleApplication::init() {
@@ -34,9 +35,9 @@ void ConsoleApplication::init() {
 
 void ConsoleApplication::stopConduitThreads() {
     using namespace std::chrono_literals;
-    for (auto handler : conduitThreads_)   handler->quit();
-    for (auto handler : conduitThreads_)   handler->wait(QDeadlineTimer(1s));
-    qDeleteAll(conduitThreads_);
+    for (auto thread : conduitThreads_)   thread->quit();
+    for (auto thread : conduitThreads_)   thread->wait(QDeadlineTimer(1s));
+    conduitThreads_.clear();
 }
 
 void ConsoleApplication::close() {

@@ -4,29 +4,27 @@
 #include <QDebug>
 Q_LOGGING_CATEGORY(catConduitThread,"ConduitThread")
 
+//#TODO: find alternative to MACRO, maybe template folding expression
+#define DBG qCDebug(catConduitThread).noquote() << portName_ << ">"
 
-ConduitThread::ConduitThread(QObject *parent) : QThread(parent) {
-    start();
-}
-
-ConduitThread::ConduitThread(const QString &portName, QObject *parent) : ConduitThread(parent) {
+ConduitThread::ConduitThread(const QString &portName, QObject *parent) : QThread(parent) {
     portName_ = portName;
-    qCDebug(catConduitThread).noquote() << portName_ << " +++ Constructor";
-    handler_ = new ConduitHandler(portName_);
-    handler_->moveToThread(this);
-    start();
+    DBG << "+++Constructor";
+    connect(this, &ConduitThread::finished, this, &ConduitThread::deleteLater);
 }
 
 ConduitThread::~ConduitThread() {
-    if (handler_) {
-        delete handler_;
-        handler_ = nullptr;
-    }
-    qCDebug(catConduitThread).noquote() << portName_ << " --- Destructor";
+    DBG<<"---Destructor";
 }
 
 void ConduitThread::run() {
-    qCDebug(catConduitThread).noquote() << portName_ << " > Run";
-    exec();
-    qCDebug(catConduitThread).noquote() << portName_ << " > Exit";
+    DBG<<"Run";
+    handler_ = new ConduitHandler(portName_);
+    if (handler_ && handler_->start())  {
+        exec();
+        handler_->stop();
+        delete handler_;
+        handler_ = nullptr;
+    }
+    DBG<<"Exit";
 }

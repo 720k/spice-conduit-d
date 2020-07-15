@@ -12,14 +12,13 @@ class ConduitThread : public QThread
 {
     Q_OBJECT
 public:
-    ConduitThread(QObject *parent = nullptr);
-    ConduitThread(const QString& portName, QObject *parent = nullptr);
-    ~ConduitThread() override;
+                                ConduitThread(const QString& portName, QObject *parent = nullptr);
+                                ~ConduitThread() override;
 
-    void run() override;
+    void                        run() override;
 private:
 
-    QString         portName_;
-    ConduitHandler* handler_=nullptr;
+    QString                     portName_;
+    ConduitHandler*             handler_            =nullptr;
 };
 

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "WSerialPort/WSerialPort.h"
+#include "NetworkLocalServer.h"
 #include <QObject>
-#include <QLocalServer>
 #include <QLoggingCategory>
 Q_DECLARE_LOGGING_CATEGORY(catConduitHandler)
+
 
 class ConduitHandler : public QObject
 {
@@ -14,12 +15,19 @@ public:
                         ~ConduitHandler() override;
 
 
+                        bool start();
+                        void stop();
+private slots:
+    void                systemPortReadyRead();
+    void                localServerReadyRead(QByteArray data);
 signals:
 private:
-    WSerialPort     systemPort_;
-    QLocalServer    localServer_;
-    QLocalSocket*   localPort_=nullptr;
-    QString         portName_;
-    QString         systemPortName_;
+    void                closeSystemPort();
+    bool                openSystemPort();
+    bool                startlocalServer();
+
+    QString             portName_;
+    WSerialPort         systemPort_;
+    NetworkLocalServer  localServer_;
 };
 
