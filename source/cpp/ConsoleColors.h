@@ -1,16 +1,16 @@
 #pragma once
 #include <QDebug>
 
-#define cRST ("\e[0m")
+#define cRST ("\u001B[0m")
 #define cEOL (cRST)
-#define cYLW ("\e[38;5;226m")
-#define cORG ("\e[38;5;214m")
-#define cGRN ("\e[38;5;070m")
-#define cRED ("\e[38;5;160m")
-#define cBLU ("\e[38;5;027m")
+#define cYLW ("\u001B[38;5;226m")
+#define cORG ("\u001B[38;5;214m")
+#define cGRN ("\u001B[38;5;070m")
+#define cRED ("\u001B[38;5;160m")
+#define cBLU ("\u001B[38;5;027m")
 
-#define cLV0 ("\e[38;5;177m")
-#define cLV1 ("\e[38;5;148m")
-#define cLV2 ("\e[38;5;228m")
+#define cLV0 ("\u001B[38;5;177m")
+#define cLV1 ("\u001B[38;5;148m")
+#define cLV2 ("\u001B[38;5;228m")
 
 #define CON (qDebug().noquote())

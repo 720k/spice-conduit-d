@@ -1,4 +1,4 @@
-#include "ConsoleAppExitStrategy.h"
+#include "ConsoleAppEnterToQuit.h"
 #include "ConsoleApplication.h"
 #include <QCoreApplication>
 

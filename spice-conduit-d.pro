@@ -19,11 +19,11 @@ INCLUDEPATH += ./WSerialPort
 SOURCES += \
     source/cpp/ConduitHandler.cpp \
     source/cpp/ConduitThread.cpp \
+    source/cpp/ConsoleAppEnterToQuit.cpp \
     source/cpp/ConsoleApplication.cpp \
     source/cpp/NetworkLocalServer.cpp \
     source/cpp/WSerialPort/WSerialPort.cpp \
     source/cpp/WSerialPort/qwinoverlappedionotifier.cpp \
-    source/cpp/ConsoleAppExitStrategy.cpp \
     source/cpp/__main.cpp
 
 win32 {
@@ -41,13 +41,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     source/cpp/ConduitHandler.h \
     source/cpp/ConduitThread.h \
+    source/cpp/ConsoleAppEnterToQuit.h \
     source/cpp/ConsoleApplication.h \
     source/cpp/ConsoleColors.h \
     source/cpp/NetworkLocalServer.h \
     source/cpp/WSerialPort/WSerialPort.h \
     source/cpp/WSerialPort/WSerialPort_p.h \
-    source/cpp/WSerialPort/qwinoverlappedionotifier_p.h \
-    source/cpp/ConsoleAppExitStrategy.h
+    source/cpp/WSerialPort/qwinoverlappedionotifier_p.h
 
 DISTFILES += \
     text/info.text

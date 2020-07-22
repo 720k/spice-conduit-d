@@ -1,3 +1,7 @@
+> 2020-07-22
+Colors in Console: Just use \u001b instead of \e
+https://superuser.com/questions/413073/windows-console-with-ansi-colors-handling
+
 > 2020-07-15
 ERROR: CanecelIoEx has not been declared
 CAUSE: function is defined in ioapiset.h but only if WIN32_WINNT >= 0x0600
