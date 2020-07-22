@@ -1,0 +1,6 @@
+# ignore bplayer build/run configurations
+/spice-conduit-d.pro.user
+/spice-conduit-d.pro.user.*
+
+#ingore qtcreator temporarty savings
+*.autosave
