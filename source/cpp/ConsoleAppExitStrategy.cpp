@@ -5,20 +5,20 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-Q_LOGGING_CATEGORY(catConsoleAppExitStrategy, "ConsoleAppExitStrategy")
+Q_LOGGING_CATEGORY(catConsoleAppEnterToQuit, "ConsoleAppEnterToQuit")
 
-ConsoleAppExitStrategy::ConsoleAppExitStrategy(QObject *parent) : QObject(parent) {
+ConsoleAppEnterToQuit::ConsoleAppEnterToQuit(QObject *parent) : QObject(parent) {
     exitFn_ = std::async(std::launch::async, [&]() { std::getchar(); exitFlag_=true; } );
     using namespace std::chrono_literals;
     timerId_= startTimer(300ms);
-    qCDebug(catConsoleAppExitStrategy) << "*** press <ENTER> to Quit!";
+    qCDebug(catConsoleAppEnterToQuit) << "*** press <ENTER> to Quit!";
 }
 
-ConsoleAppExitStrategy::~ConsoleAppExitStrategy() {
+ConsoleAppEnterToQuit::~ConsoleAppEnterToQuit() {
     exitFn_.wait();
 }
 
-void ConsoleAppExitStrategy::timerEvent(QTimerEvent *event) {           Q_UNUSED(event)
+void ConsoleAppEnterToQuit::timerEvent(QTimerEvent *event) {           Q_UNUSED(event)
     if (exitFlag_) {
         killTimer(timerId_);
         qApp->quit();

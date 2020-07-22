@@ -3,7 +3,7 @@
 #include <QCoreApplication>
 
 int main(int argCount, char *argValues[]) {
-    ConsoleApplication app(argCount, argValues);
-    ConsoleAppExitStrategy exitStrategy; // ENTER to QUIT!
+    ConsoleApplication      app(argCount, argValues);
+    ConsoleAppEnterToQuit   exitStrategy; // ENTER to QUIT!
     return app.run();
 }

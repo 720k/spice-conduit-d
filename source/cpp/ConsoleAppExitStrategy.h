@@ -5,14 +5,14 @@
 #include <future>
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(catConsoleAppExitStrategy)
+Q_DECLARE_LOGGING_CATEGORY(catConsoleAppEnterToQuit)
 
-class ConsoleAppExitStrategy : public QObject
+class ConsoleAppEnterToQuit : public QObject
 {
     Q_OBJECT
 public:
-    explicit                    ConsoleAppExitStrategy(QObject *parent = nullptr);
-                                ~ConsoleAppExitStrategy();
+    explicit                    ConsoleAppEnterToQuit(QObject *parent = nullptr);
+                                ~ConsoleAppEnterToQuit();
 
 signals:
 private:
