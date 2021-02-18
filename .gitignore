@@ -2,5 +2,5 @@
 /spice-conduit-d.pro.user
 /spice-conduit-d.pro.user.*
 
-#ingore qtcreator temporarty savings
+#ignore qtcreator temporarty savings
 *.autosave
