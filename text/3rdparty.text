@@ -1,0 +1,12 @@
+Qt Service
+    from Skycoder42 Github : https://github.com/Skycoder42/QtService
+    prebuilt library with Qt 5.15.0 and msvc2019 64bit
+    download from : https://github.com/Skycoder42/QtService/releases/
+    or direct url:  https://github.com/Skycoder42/QtService/releases/download/2.0.2-4/qtservice-msvc2019_64-5.15.0.zip
+    extract to %{CurrentDocument:FilePath} /3rdparty/QtService/msvc2019_64/
+    qmake project fill append:
+        #QtService
+        win32 {
+            INCLUDEPATH = 3rdparty/QtService/msvc2019_64/include
+            LIBS += -L"$$shell_path($$PWD/3rdparty/QtService/msvc2019_64/lib)" -lQt5Service
+        }

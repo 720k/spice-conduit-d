@@ -4,3 +4,6 @@
 
 #ignore qtcreator temporarty savings
 *.autosave
+
+#ignore 3rdparty libs
+/3rdparty

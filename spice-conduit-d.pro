@@ -50,7 +50,13 @@ HEADERS += \
     source/cpp/WSerialPort/qwinoverlappedionotifier_p.h
 
 DISTFILES += \
+    text/3rdparty.text \
     text/info.text
 
+# 3RDPARTY
 
-
+#QtService
+win32 {
+	INCLUDEPATH = 3rdparty/QtService/msvc2019_64/include
+	LIBS += -L"$$shell_path($$PWD/3rdparty/QtService/msvc2019_64/lib)" -lQt5Service
+}
