@@ -1,9 +1,9 @@
-#include "ConsoleAppEnterToQuit.h"
-#include "ConsoleApplication.h"
+#include "ServiceApplication.h"
 #include <QCoreApplication>
 
-int main(int argCount, char *argValues[]) {
-    ConsoleApplication      app(argCount, argValues);
-    ConsoleAppEnterToQuit   exitStrategy; // ENTER to QUIT!
-    return app.run();
+int main(int argc, char *argv[]) {
+    ServiceApplication      app(argc, argv);
+    QCoreApplication::setApplicationName(QStringLiteral("spice-conduit-d"));
+    QCoreApplication::setApplicationVersion(QStringLiteral("2020.0218.1"));
+    return app.exec();
 }
