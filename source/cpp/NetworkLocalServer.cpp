@@ -8,6 +8,7 @@ Q_LOGGING_CATEGORY(catNetworkLocalServer,"NetworkLocalServer")
 
 NetworkLocalServer::NetworkLocalServer(QObject *parent) : QLocalServer(parent) {
     connect(this, &QLocalServer::newConnection, this, &NetworkLocalServer::newConnectionAvailable);
+    setSocketOptions(QLocalServer::WorldAccessOption);
 }
 
 void NetworkLocalServer::print(QString str, const QByteArray &data) {
