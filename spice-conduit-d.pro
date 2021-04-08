@@ -1,3 +1,8 @@
+include($$PWD/manifest.pri)
+message( "______________________________________" )
+message( PROJECT = $${ProjectName} )
+message( VERSION = $${ProjectVersion} )
+
 QT -= gui
 QT += core-private network network-private serialport serialport-private
 
@@ -48,6 +53,9 @@ HEADERS += \
     source/cpp/WSerialPort/qwinoverlappedionotifier_p.h
 
 DISTFILES += \
+    deploy/Deploy.ps1 \
+    deploy/Uninstall_Service.ps1 \
+    deploy/install-service.ps1 \
     text/3rdparty.text \
     text/info.text
 
